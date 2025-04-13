@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/app
+    username: app
+    password: app
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    format-sql: true
+  application:
+    name: order-service
+
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: DEBUG
+server:
+  port: 8081
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
