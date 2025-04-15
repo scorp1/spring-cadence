@@ -7,18 +7,26 @@ import org.example.orderservice.dto.ProductDto;
 import org.example.orderservice.entity.Order;
 import org.example.orderservice.mapper.OrderMapper;
 import org.example.orderservice.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class OrderService {
 
-    private final OrderRepository orderRepository;
-    private final CustomerService customerService;
-    private final ProductService productService;
-    private final OrderMapper orderMapper;
+    private OrderRepository orderRepository;
+    private  CustomerService customerService;
+    private ProductService productService;
+    private OrderMapper orderMapper;
+
+    public OrderService(OrderRepository orderRepository, CustomerService customerService,
+        ProductService productService, OrderMapper orderMapper) {
+        this.orderRepository = orderRepository;
+        this.customerService = customerService;
+        this.productService = productService;
+        this.orderMapper = orderMapper;
+    }
 
     public OrderDto process(OrderDto order) {
         ProductDto product = productService.getProduct(order.getProductId());

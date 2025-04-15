@@ -1,25 +1,26 @@
 package org.example.orderservice.api;
 
-import lombok.RequiredArgsConstructor;
 import org.example.orderservice.cadence.service.CadenceOrderService;
 import org.example.orderservice.dto.OrderDto;
-import org.example.orderservice.entity.Order;
+import org.example.orderservice.dto.OrderResponseDto;
 import org.example.orderservice.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/order")
 public class OrderController {
 
     private final OrderService orderService;
     private final CadenceOrderService cadenceOrderService;
 
+  public OrderController(CadenceOrderService cadenceOrderService, OrderService orderService) {
+    this.cadenceOrderService = cadenceOrderService;
+    this.orderService = orderService;
+  }
     @PostMapping()
     public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto order) {
         if (order != null) {
@@ -30,12 +31,10 @@ public class OrderController {
     }
 
     @PostMapping("/cadence/create")
-    public ResponseEntity<OrderDto> createOrderWithCadence(@RequestBody OrderDto order) {
-        OrderDto newOrder = cadenceOrderService.createOrderCadence(order);
-        if (newOrder != null) {
-            return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<OrderResponseDto> createOrderWithCadence(@RequestBody OrderDto order) {
+        OrderResponseDto newOrder = cadenceOrderService.createOrderCadence(order);
+
+       return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
     @GetMapping("/")

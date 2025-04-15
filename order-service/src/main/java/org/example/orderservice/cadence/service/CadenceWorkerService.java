@@ -17,16 +17,26 @@ import org.example.orderservice.cadence.activities.OrderActivitiesImpl;
 import org.example.orderservice.cadence.workflow.OrderWorkflow;
 import org.example.orderservice.cadence.workflow.OrderWorkflowImpl;
 import org.example.orderservice.service.CustomerService;
+import org.example.orderservice.service.OrderService;
 import org.example.orderservice.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class CadenceWorkerService {
     private WorkerFactory factory;
     private final org.example.orderservice.service.OrderService orderService;
     private final ProductService productService;
     private final CustomerService customerService;
+
+    public CadenceWorkerService(OrderService orderService, ProductService productService,
+        CustomerService customerService) {
+        this.orderService = orderService;
+        this.productService = productService;
+        this.customerService = customerService;
+    }
+
     private WorkflowClient workflowClient;
 
     @PostConstruct // Если используется Spring
@@ -50,11 +60,9 @@ public class CadenceWorkerService {
             System.out.println("Domain already exists");
         }
 
-        WorkflowClientOptions clientOptions = WorkflowClientOptions.newBuilder()
-                .setDomain("test-domain")
-                .build();
-
-        //workflowClient = WorkflowClient.newInstance(service, clientOptions);
+//        WorkflowClientOptions clientOptions = WorkflowClientOptions.newBuilder()
+//                .setDomain("test-domain")
+//                .build();
 
         // Создание клиента
          workflowClient =
@@ -81,6 +89,8 @@ public class CadenceWorkerService {
                         .setMaxConcurrentActivityExecutionSize(100)
                         .setMaxConcurrentWorkflowExecutionSize(100)
                         .build());
+
+        //OrderService orderService1 = new OrderService()
 
         // Регистрация имплементаций
         worker.registerWorkflowImplementationTypes(OrderWorkflowImpl.class);
