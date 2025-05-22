@@ -35,6 +35,8 @@
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <cadence-client.version>3.12.4</cadence-client.version>
+        <lb-cadencetools-17.version>0.1.0-20240731.101021-1</lb-cadencetools-17.version>
     </properties>
     <dependencies>
         <dependency>

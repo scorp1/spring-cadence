@@ -11,24 +11,24 @@ import java.time.Duration;
 
 @Service
 public class CadenceOrderService {
-    private final WorkflowClient workflowClient;
+    //private final WorkflowClient workflowClient;
     private final CadenceWorkerService service;
 
     public CadenceOrderService(CadenceWorkerService cadenceWorkerService) {
-        this.workflowClient = cadenceWorkerService.getWorkflowClient();
+        //this.workflowClient = cadenceWorkerService.getWorkflowClient();
         this.service = cadenceWorkerService;
     }
 
-    public OrderResponseDto createOrderCadence(OrderDto order) {
-
-        WorkflowOptions options = new WorkflowOptions.Builder()
-                .setTaskList("orderTaskList")
-                .setExecutionStartToCloseTimeout(Duration.ofMinutes(10))
-                .build();
-
-        OrderWorkflow orderWorkflow = workflowClient.newWorkflowStub(OrderWorkflow.class, options);
-
-        return orderWorkflow.createOrder(order);
-    }
+//    public OrderResponseDto createOrderCadence(OrderDto order) {
+//
+//        WorkflowOptions options = new WorkflowOptions.Builder()
+//                .setTaskList("orderTaskList")
+//                .setExecutionStartToCloseTimeout(Duration.ofMinutes(10))
+//                .build();
+//
+//        OrderWorkflow orderWorkflow = workflowClient.newWorkflowStub(OrderWorkflow.class, options);
+//
+//        return orderWorkflow.createOrder(order);
+//    }
 
 }
