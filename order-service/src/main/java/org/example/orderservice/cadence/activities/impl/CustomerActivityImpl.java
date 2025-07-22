@@ -1,11 +1,12 @@
 package org.example.orderservice.cadence.activities.impl;
 
 import org.example.orderservice.cadence.activities.CustomerActivity;
+import org.example.orderservice.dto.CustomerDto;
 import org.example.orderservice.dto.CustomerRequestDto;
 import org.example.orderservice.dto.CustomerResponseDto;
 import org.example.orderservice.service.CustomerService;
 
-public class CustomerActivityImpl implements CustomerActivity {
+public class CustomerActivityImpl {
 
   private final CustomerService customerService;
 
@@ -13,17 +14,16 @@ public class CustomerActivityImpl implements CustomerActivity {
     this.customerService = customerService;
   }
 
-  @Override
-  public CustomerResponseDto chargeCustomer(CustomerRequestDto request) {
-    var customer = customerService.updateCustomer(request.getCustomer());
 
-    return new CustomerResponseDto(request.getRequestId(), customer);
+  public CustomerDto chargeCustomer(CustomerDto customerDto) {
+    var customer = customerService.updateCustomer(customerDto);
+
+    return customer;
   }
 
-  @Override
-  public CustomerResponseDto refundCustomer(CustomerRequestDto request) {
-    var customer = customerService.updateCustomer(request.getCustomer());
+  public CustomerDto refundCustomer(CustomerDto customerDto) {
+    var customer = customerService.updateCustomer(customerDto);
 
-    return new CustomerResponseDto(request.getRequestId(), customer);
+    return customer;
   }
 }

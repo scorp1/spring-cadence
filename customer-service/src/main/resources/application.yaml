@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: cadence.yml
   datasource:
     url: jdbc:postgresql://localhost:5434/app
     username: app

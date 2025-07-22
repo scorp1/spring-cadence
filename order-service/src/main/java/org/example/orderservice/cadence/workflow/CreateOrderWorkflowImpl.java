@@ -22,7 +22,7 @@ public class CreateOrderWorkflowImpl implements CreateOrderWorkflow {
   public CreateOrderResponseDto createOrder(CreateOrderRequestDto request) {
     var orderResponse = orderService.createOrder(request);
 
-    return new CreateOrderResponseDto(request.getRequestId(), request.getOrderDto());
+    return orderResponse;
   }
 
 }

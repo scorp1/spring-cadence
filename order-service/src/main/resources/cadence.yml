@@ -6,3 +6,5 @@ app:
     workers:
       orderWorker:
         taskList: CREATE-ORDER
+        customerTaskList: UPDATE-CUSTOMER
+        productTaskList: BUY-PRODUCT

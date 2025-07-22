@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "app.cadence.activities")
 public class CadenceActivityProperties {
 
-  private CadenceActivityOptions productActivity = new CadenceActivityOptions();
+  private CadenceActivityOptions productActivityTmp = new CadenceActivityOptions();
   private CadenceActivityOptions customerActivity = new CadenceActivityOptions();
   private CadenceActivityOptions orderActivity = new CadenceActivityOptions();
 }

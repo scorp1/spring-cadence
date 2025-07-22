@@ -12,5 +12,6 @@ public class CreateOrderResponseDto {
 
   private UUID requestId;
   private OrderDto order;
+  private String message;
 
 }

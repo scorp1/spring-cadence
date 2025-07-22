@@ -23,12 +23,6 @@ public class OrderController {
     private final CadenceOrderService cadenceOrderService;
     private final CadenceWorkflowService cadenceWorkflowService;
 
-//  public OrderController(CadenceOrderService cadenceOrderService,
-//      OrderService orderService, CadenceWorkflowService cadenceWorkflowService) {
-//    this.cadenceOrderService = cadenceOrderService;
-//    this.orderService = orderService;
-//    this.cadenceWorkflowService = cadenceWorkflowService;
-//  }
     @PostMapping()
     public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto order) {
         if (order != null) {
@@ -36,13 +30,6 @@ public class OrderController {
             return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping("/cadence/create")
-    public ResponseEntity<OrderResponseDto> createOrderWithCadence(@RequestBody OrderDto order) {
-//        OrderResponseDto newOrder = cadenceOrderService.createOrderCadence(order);
-
-       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
   @PostMapping("/cadence/create-order")

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.example.orderservice.cadence.config.properties.worker.CadenceWorkerOptions;
 import org.example.orderservice.cadence.config.properties.worker.CadenceWorkerProperties;
+import org.example.orderservice.cadence.local.activity.CustomerLocalActivity;
 import org.example.orderservice.cadence.local.activity.ProductLocalActivity;
 import org.example.orderservice.cadence.workflow.OrderWorkflowImpl;
 import org.example.orderservice.cadence.workflow.CreateOrderWorkflowImpl;
@@ -21,6 +22,7 @@ public class OrderWorker implements CadenceWorker {
   private final ObjectProvider<OrderWorkflowImpl> orderWorkflow;
   private final ObjectProvider<CreateOrderWorkflowImpl> createOrderWorkflow;
   private final ProductLocalActivity productLocalActivity;
+  private final CustomerLocalActivity customerLocalActivity;
 
   @Override
   public CadenceWorkerOptions getWorkerOptions() {
@@ -37,6 +39,6 @@ public class OrderWorker implements CadenceWorker {
 
   @Override
   public List<?> getActivities() {
-    return Arrays.asList(productLocalActivity);
+    return Arrays.asList(productLocalActivity, customerLocalActivity);
   }
 }

@@ -6,11 +6,11 @@ import org.example.orderservice.dto.ProductRequestDto;
 import org.example.orderservice.dto.ProductResponseDto;
 import org.example.orderservice.service.ProductService;
 
-public class ProductActivityImpl implements ProductActivityTmp {
+public class ProductActivityTmpImpl implements ProductActivityTmp {
 
   private final ProductService productService;
 
-  public ProductActivityImpl(ProductService productService) {
+  public ProductActivityTmpImpl(ProductService productService) {
     this.productService = productService;
   }
 

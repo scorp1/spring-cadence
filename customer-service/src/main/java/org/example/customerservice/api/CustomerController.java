@@ -1,6 +1,7 @@
 package org.example.customerservice.api;
 
 import lombok.RequiredArgsConstructor;
+import org.example.customerservice.dto.CustomerDto;
 import org.example.customerservice.entity.Customer;
 import org.example.customerservice.service.CustomerService;
 import org.springframework.http.HttpStatus;
@@ -16,18 +17,18 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping("{id}")
-    public ResponseEntity<Customer> getConsumer(@PathVariable Long id) {
-        Optional<Customer> customer = customerService.findCustomerById(id);
+    public ResponseEntity<CustomerDto> getConsumer(@PathVariable Long id) {
+        var customer = customerService.findCustomerById(id);
         if (customer.isPresent()) {
             return new ResponseEntity<>(customer.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("buy")
-    public ResponseEntity<Customer> processBuy(@RequestBody Customer customer) {
-        Customer customerNew = customerService.processWallet(customer);
-
-        return new ResponseEntity<>(customerNew, HttpStatus.OK);
-    }
+//    @PostMapping("buy")
+//    public ResponseEntity<Customer> processBuy(@RequestBody Customer customer) {
+//        Customer customerNew = customerService.processWallet(customer);
+//
+//        return new ResponseEntity<>(customerNew, HttpStatus.OK);
+//    }
 }

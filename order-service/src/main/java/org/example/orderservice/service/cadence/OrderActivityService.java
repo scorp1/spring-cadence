@@ -34,15 +34,15 @@ public class OrderActivityService {
 //    return productActivity.reserveProductTmp(request);
 //  }
 
-  public CustomerResponseDto chargeCustomerOrder(CustomerRequestDto request,
-      Saga saga, CadenceWorkerOptions cadenceWorkerOptions) {
-    var taskList = cadenceWorkerOptions.getTaskList();
-    CustomerActivity customerActivity = Workflow.newActivityStub(
-        CustomerActivity.class, cadenceConfigClient.createExternalActivityOptions(
-            taskList, cadenceActivityProperties.getCustomerActivity()));
-    saga.addCompensation(customerActivity::refundCustomer, request);
-
-    return customerActivity.chargeCustomer(request);
-  }
+//  public CustomerResponseDto chargeCustomerOrder(CustomerRequestDto request,
+//      Saga saga, CadenceWorkerOptions cadenceWorkerOptions) {
+//    var taskList = cadenceWorkerOptions.getTaskList();
+//    CustomerActivity customerActivity = Workflow.newActivityStub(
+//        CustomerActivity.class, cadenceConfigClient.createExternalActivityOptions(
+//            taskList, cadenceActivityProperties.getCustomerActivity()));
+//    saga.addCompensation(customerActivity::refundCustomer, request);
+//
+//    return customerActivity.chargeCustomer(request);
+//  }
 
 }

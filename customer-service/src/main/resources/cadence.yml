@@ -1,0 +1,8 @@
+app:
+  cadence:
+    host: localhost
+    port: 7933
+    domain: ORDER-SERVICE-DOMAIN
+    workers:
+      orderWorker:
+        taskList: UPDATE-CUSTOMER
