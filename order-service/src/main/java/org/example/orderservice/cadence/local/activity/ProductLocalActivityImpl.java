@@ -24,7 +24,7 @@ public class ProductLocalActivityImpl implements ProductLocalActivity{
       var newCount = currentProduct.get().getCount() - sum;
       currentProduct.get().setCount(newCount);
       repositoryService.updateCount(currentProduct.get());
-      compensateRepositoryService.save(currentProduct.get().getId(), oldCount, requestId);
+      compensateRepositoryService.saveProduct(currentProduct.get().getId(), oldCount, requestId);
 
       return true;
     }
@@ -36,8 +36,10 @@ public class ProductLocalActivityImpl implements ProductLocalActivity{
   public void releaseProduct(Long productId, Integer count, UUID requestId) {
     Optional<Product> currentProduct = repositoryService.findById(productId);
     var compensate = compensateRepositoryService.findById(requestId);
-    currentProduct.get().setCount(compensate.getProductCount());
-    repositoryService.updateCount(currentProduct.get());
+    if (compensate.isPresent()) {
+      currentProduct.get().setCount(compensate.get().getProductCount());
+      repositoryService.updateCount(currentProduct.get());
+    }
   }
 
 }

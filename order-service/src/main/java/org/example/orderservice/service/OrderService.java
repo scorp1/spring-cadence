@@ -37,6 +37,7 @@ public class OrderService {
     private final ProductLocalActivity productLocalActivity;
     private final CustomerActivityService customerActivityService;
     private final CadenceWorkerOptions cadenceWorkerOptions;
+    private final CompensateRepositoryService compensateRepositoryService;
 
     public CreateOrderResponseDto createOrder(CreateOrderRequestDto request) {
         final Saga saga = new Saga(new Saga.Options.Builder().build());
@@ -61,14 +62,17 @@ public class OrderService {
                 log.info("saga compensate!");
                 saga.compensate();
                 //productLocalActivity.releaseProduct(productId, quantity, requestId);
+                compensateRepositoryService.deleteById(requestId);
                 return new CreateOrderResponseDto(request.getRequestId(), orderCreate, "Error cancel order, not enough money");
             }
 
             orderCreate = this.saveOrder(request.getOrderDto());
+            compensateRepositoryService.deleteById(requestId);
             log.info("buy sucsess!");
 
         } catch (Exception e) {
             saga.compensate();
+            compensateRepositoryService.deleteById(request.getRequestId());
             return new CreateOrderResponseDto(request.getRequestId(), orderCreate, "Error cancel order, \n"
                 + "system failure!");
         }
